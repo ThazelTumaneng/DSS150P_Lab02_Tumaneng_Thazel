@@ -8,13 +8,13 @@
 
 **2. Schema Findings**
 * **Flat-file Structure:** Contains 250 records across 7 columns (customer_id, first_name, last_name, email, city, signup_date, customer_segment).
-* **Stateless Text Types:** Inferref as generic strings (str) types across all cokumns due to the laack of native schema metadata in CSV formatting.
+* **Stateless Text Types:** Inferred as generic strings (str) types across all columns due to the lack of native schema metadata in CSV formatting.
 * **Customers Logical Schema:**
     * **customer_id**
         * Logical Type: string
-        | Nullable | Key Role | Definition | 
-        |---|---|--- |
-        |False|Candidate Key/Primary Key Identifier|Unique Identifier assigned to each registered customer.|
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |False|Candidate Key/Primary Key Identifier|Unique Identifier assigned to each registered customer.|
     * **first_name**
         * Logical Type: string
         |Nullable: True| Key Role: Attribute| Definition: The customer's given name
@@ -36,7 +36,7 @@
 
 **3. Data Quality Findings**
 * **Row-Level Duplication:** Exactly 2 duplicate rows exist in the file.
-* **Identifier Collisions:** The 'customer_id' column cotains duplicates (total unique count is less than 250), violating primary key uniqueness expectations.
+* **Identifier Collisions:** The 'customer_id' column contains duplicates (total unique count is less than 250), violating primary key uniqueness expectations.
 * **Missing Attributes:** The 'email' column has 3 missing values, and the 'city' column has 2 missing values.
 
 **4. Recommended Acquisition Method**
@@ -66,7 +66,7 @@
 **4. Recommended Acquisition Method**
 * **Method:** Full file copy combined with manifest tracking record file integrity.
 * **Raw Destination:** data/orders.json
-* **Duplicate Key:** CSHA-256 hash manifest tracking to guarantee byte-for-byte fidelity and prevent duplicate file copies during reruns.
+* **Duplicate Key:** SHA-256 hash manifest tracking to guarantee byte-for-byte fidelity and prevent duplicate file copies during reruns.
 * **Incremental State:** N/A (Handles as static full snapshots)
 
 **5. Risks and Assumptions**
@@ -90,7 +90,7 @@
 **4. Recommended Acquisition Method**
 * **Method:** Direct file read using pandas/pyarrow
 * **Raw Destination:** data/products.parquet
-* **Duplicate Key:** CSHA-256 hash manifest tracking to guarantee byte-for-byte fidelity and prevent duplicate file copies during reruns.
+* **Duplicate Key:** SHA-256 hash manifest tracking to guarantee byte-for-byte fidelity and prevent duplicate file copies during reruns.
 * **Incremental State:** N/A (Handles as static full snapshots)
 
 **5. Risks and Assumptions**
@@ -99,7 +99,7 @@
 # Local REST API
 
 * **Volume & Structure:** Contains a total of 122 event records distributed across multiple pages. Each record contains top-level keys including 'event_id', 'customer_id', 'event_type', 'amount', 'updated_at', and a nested 'metadata' dictionary.
-* **Pagination & Quality Observations:** Relies on pagination controls (page, per_page, has_more, next_page, items). Processing only page 1 captures a subset (10 records), resulting in an incomplete ingestio. The source intentionally contains duplicated event_id values with newer timestamps, requiring deterministic code-driven deduplication.
+* **Pagination & Quality Observations:** Relies on pagination controls (page, per_page, has_more, next_page, items). Processing only page 1 captures a subset (10 records), resulting in an incomplete ingestion. The source intentionally contains duplicated event_id values with newer timestamps, requiring deterministic code-driven deduplication.
 * **API Events Logical Schema**
     * **event_id**
         * Logical Type: string
@@ -129,7 +129,7 @@
 
 * **Table Structure:** Contains 8 columns (ticket_id, customer_id, category, priority, assigned_agent, opened_at, resolved_at, and status) backed by a primary key on ticket_id.
 * **Data Types & Constraints:** Utilizes strongly-typed relational fields: 'integer' for IDs , character varying for text attributes, and timestamp without time zone for dates. Nullability is enforced on primary keys and core categorizations, while 'assigned_agent' and 'resolved_at' allow nullable states.
-* **Record Volume & Completeness:** Total row count is exactly 250 records. Inspection confirms 4 record contain unassigned agents.
+* **Record Volume & Completeness:** Total row count is exactly 250 records. Inspection confirms 4 records contain unassigned agents.
 * **Recommended Acquisition Method**
     * **Method:** Bounded SQL query extraction executed via a secure database connector
     * **Raw Destination:** sql/support_tickets
