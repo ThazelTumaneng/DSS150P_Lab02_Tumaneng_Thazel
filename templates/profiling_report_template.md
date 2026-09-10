@@ -17,22 +17,34 @@
             |False|Candidate Key/Primary Key Identifier|Unique Identifier assigned to each registered customer.|
     * **first_name**
         * Logical Type: string
-        |Nullable: True| Key Role: Attribute| Definition: The customer's given name
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |True| Attribute|The customer's given name |
     * **last_name**
         * Logical Type: string
-        |Nullable: True| Key Role: Attribute| Definition: The customer's family name
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |True| Attribute|The customer's family name |
     * **email**
         * Logical Type: string
-        |Nullable: True| Key Role: Attribute| Definition: Primary electronic mail address for contact
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |True| Attribute|Primary electronic mail address for contact|
     * **city**
         * Logical Type: string
-        |Nullable: True| Key Role: Attribute| Definition: Municipality of residence
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |True|Attribute|Municipality of residence|
     * **signup_date**
         * Logical Type: timestamp
-        |Nullable: False| Key Role: Attribute| Definition: Exact date and time of user registration
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |False|Attribute|Exact date and time of user registration |
     * **customer_segment**
         * Logical Type: string
-        |Nullable: False| Key Role: Attribute| Definition: Tier or classification of the customer
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |False|Attribute|Tier or classification of the customer |
 
 **3. Data Quality Findings**
 * **Row-Level Duplication:** Exactly 2 duplicate rows exist in the file.
@@ -103,22 +115,34 @@
 * **API Events Logical Schema**
     * **event_id**
         * Logical Type: string
-        |Nullable: False| Key Role: Candidate Key| Definition: Unique alphanumeric code for the interaction event|
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |False|Candidate Key|Unique alphanumeric code for the interaction event|
     * **customer_id**
         * Logical Type: string
-        |Nullable: False| Key Role: Foreign Key Reference| Definition: Identifier linking the event to a specific customer|
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |False|Foreign Key Reference|Identifier linking the event to a specific customer|
     * **event_type**
         * Logical Type: string
-        |Nullable: False| Key Role: Attribute| Definition: Category of interaction (e.g., page view, support ticket, payment)|
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |False|Attribute|Category of interaction (e.g., page view, support ticket, payment)|
     * **amount**
         * Logical Type: float
-        |Nullable: False| Key Role: Metric| Definition: Financial value associated with the event|
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |False|Metric|Financial value associated with the event|
     * **updated_at**
         * Logical Type: timestamp
-        |Nullable: False| Key Role: Watermark/Timestamp| Definition: Timestamp marking when the record state was updated|
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |False|Watermark/Timestamp| Timestamp marking when the record state was updated|
     * **metadata**
         * Logical Type: json
-        |Nullable: False| Key Role: Attribute| Definition: Embedded dictionary containing campaign and channel attributes|
+            | Nullable | Key Role | Definition | 
+            |---|---|--- |
+            |False|Attribute|Embedded dictionary containing campaign and channel attributes|
 * **Recommended Acquisition Method**
     * **Method:** Automated paginated HTTP GET request loop utilizing the has_more and next_page response flags
     * **Raw Destination:** data/events.json
