@@ -12,25 +12,25 @@
 * **Customers Logical Schema:**
     * **customer_id**
         * Logical Type: string
-        |Nullable: False|Key Role: Candidate Key/Primary Key Identifier|Definition: Unique Identifier assigned to each registered customer.|
+        |Nullable: False|Key Role: Candidate Key/Primary Key Identifier|Definition: Unique Identifier assigned to each registered customer.
     * **first_name**
         * Logical Type: string
-        |Nullable: True| Key Role: Attribute| Definition: The customer's given name|
+        |Nullable: True| Key Role: Attribute| Definition: The customer's given name
     * **last_name**
         * Logical Type: string
-        |Nullable: True| Key Role: Attribute| Definition: The customer's family name|
+        |Nullable: True| Key Role: Attribute| Definition: The customer's family name
     * **email**
         * Logical Type: string
-        |Nullable: True| Key Role: Attribute| Definition: Primary electronic mail address for contact|
+        |Nullable: True| Key Role: Attribute| Definition: Primary electronic mail address for contact
     * **city**
         * Logical Type: string
-        |Nullable: True| Key Role: Attribute| Definition: Municipality of residence|
+        |Nullable: True| Key Role: Attribute| Definition: Municipality of residence
     * **signup_date**
         * Logical Type: timestamp
-        |Nullable: False| Key Role: Attribute| Definition: Exact date and time of user registration|
+        |Nullable: False| Key Role: Attribute| Definition: Exact date and time of user registration
     * **customer_segment**
         * Logical Type: string
-        |Nullable: False| Key Role: Attribute| Definition: Tier or classification of the customer|
+        |Nullable: False| Key Role: Attribute| Definition: Tier or classification of the customer
 
 **3. Data Quality Findings**
 * **Row-Level Duplication:** Exactly 2 duplicate rows exist in the file.
