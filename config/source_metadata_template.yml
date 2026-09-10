@@ -1,12 +1,133 @@
-source_name: "TODO"
-source_type: "TODO"
-location_or_endpoint: "TODO"
-owner: "TODO"
-description: "TODO"
-record_count: "TODO"
-schema: []
-primary_or_candidate_key: "TODO"
-update_pattern: "TODO"
-known_quality_issues: []
-acquisition_method: "TODO"
-validation_checks: []
+sources:
+  - source_name: customers.csv
+    owner: "CRM Engineering Team"
+    source_type: "CSV File"
+    location: "data/customers.csv"
+    description: "Static customer profile export containing demographics and signup metrics."
+    record_count: 250
+    schema_summary:
+      columns: 7
+      types:
+        customer_id: string
+        first_name: string
+        last_name: string
+        email: string
+        city: string
+        signup_date: string
+        customer_segment: string
+    candidate_key: "customer_id"
+    update_pattern: "Full file copy / Static snapshot"
+    known_quality_issues:
+      - "3 missing email values"
+      - "2 missing city values"
+      - "2 exact duplicate rows"
+      - "Duplicate customer_id entries violating primary key uniqueness"
+    acquisition_method: "File copy via pandas read_csv with SHA-256 hash validation"
+    validation_checks:
+      - "Check primary key uniqueness on customer_id"
+      - "Assert non-null constraints on mandatory identity fields"
+      - "Deduplicate exact matching rows"
+
+  - source_name: orders.json
+    owner: "Data Engineering Team"
+    source_type: "JSON File"
+    location: "data/orders.json"
+    description: "Semi-structured transactional order data containing nested shipping objects."
+    record_count: 250
+    schema_summary:
+      columns: 9
+      types:
+        order_id: string
+        customer_id: string
+        order_timestamp: string
+        status: string
+        item_count: integer
+        subtotal: float
+        shipping_fee: integer
+        total_amount: float
+        shipping: nested_object
+    candidate_key: "order_id"
+    update_pattern: "Full file copy / Static snapshot"
+    known_quality_issues:
+      - "Nested shipping dictionary requires parsing or flattening"
+      - "Timestamps stored as string values requiring explicit type casting"
+    acquisition_method: "File read via standard json.load with manifest tracking"
+    validation_checks:
+      - "Verify root structure is a list of records"
+      - "Assert order_id uniqueness"
+      - "Validate numerical subtotal and total calculations"
+
+  - source_name: products.parquet
+    owner: "Data Engineering Team"
+    source_type: "Parquet File"
+    location: "data/products.parquet"
+    description: "Columnar product catalog containing pricing, inventory counts, and weights."
+    record_count: 200
+    schema_summary:
+      columns: 7
+      types:
+        product_id: string
+        product_name: string
+        category: string
+        brand: string
+        unit_price: float
+        stock_quantity: integer
+        weight_kg: float
+    candidate_key: "product_id"
+    update_pattern: "Full file copy / Static snapshot"
+    known_quality_issues: []
+    acquisition_method: "Direct columnar read via pandas/pyarrow"
+    validation_checks:
+      - "Assert unique product_id primary key constraint"
+      - "Verify 100% data completeness across all columns"
+
+  - source_name: rest_api_events
+    owner: "Data Engineering Team"
+    source_type: "REST API"
+    location: "http://127.0.0.1:8000/api/events"
+    description: "Paginated web service emitting customer interaction events and state updates."
+    record_count: 122
+    schema_summary:
+      pagination_fields: ["page", "per_page", "total", "has_more", "next_page"]
+      item_fields:
+        event_id: string
+        customer_id: string
+        event_type: string
+        amount: float
+        updated_at: string
+        metadata: nested_dictionary
+    candidate_key: "event_id (non-unique across mutations)"
+    update_pattern: "Paginated incremental fetch"
+    known_quality_issues:
+      - "Requires multi-page loop traversal to prevent incomplete ingestion"
+      - "Duplicated event_id values represent newer timestamps requiring deduplication"
+    acquisition_method: "Automated Python requests loop tracking has_more flag"
+    validation_checks:
+      - "Verify pagination termination condition (has_more = false)"
+      - "Deduplicate events using max updated_at sorting logic"
+
+  - source_name: postgres_support_tickets
+    owner: "Data Engineering Team"
+    source_type: "PostgreSQL Database"
+    location: "Container: dss150p-lab2-postgres / Table: support_tickets"
+    description: "Operational support queue tracking tickets, priorities, and assigned agents."
+    record_count: 250
+    schema_summary:
+      columns: 8
+      types:
+        ticket_id: integer (PK)
+        customer_id: string
+        category: string
+        priority: string
+        assigned_agent: string (nullable)
+        opened_at: timestamp
+        resolved_at: timestamp (nullable)
+        status: string
+    candidate_key: "ticket_id"
+    update_pattern: "Direct relational database query snapshot"
+    known_quality_issues:
+      - "4 records contain unassigned agents (assigned_agent IS NULL)"
+    acquisition_method: "Bounded SQL query execution via database connector"
+    validation_checks:
+      - "Verify primary key constraint on ticket_id"
+      - "Audit null state counts for assigned_agent and resolved_at fields"
