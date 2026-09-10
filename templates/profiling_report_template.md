@@ -12,7 +12,9 @@
 * **Customers Logical Schema:**
     * **customer_id**
         * Logical Type: string
-        |Nullable: False|Key Role: Candidate Key/Primary Key Identifier|Definition: Unique Identifier assigned to each registered customer.
+        | Nullable | Key Role | Definition | 
+        |---|---|--- |
+        |False|Candidate Key/Primary Key Identifier|Unique Identifier assigned to each registered customer.|
     * **first_name**
         * Logical Type: string
         |Nullable: True| Key Role: Attribute| Definition: The customer's given name
