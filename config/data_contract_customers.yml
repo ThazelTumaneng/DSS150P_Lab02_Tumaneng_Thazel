@@ -12,10 +12,10 @@ fields:
     unique: true
   - name: first_name
     type: str
-    nullable: false
+    nullable: true
   - name: last_name
     type: str
-    nullable: false
+    nullable: true
   - name: email
     type: string
     nullable: true
@@ -23,7 +23,7 @@ fields:
     type: str
     nullable: true
   - name: signup_date
-    type: str
+    type: timestamp
     nullable: false
   - name: customer_segment
     type: str
