@@ -149,7 +149,7 @@
     * **Duplicate Key:** event_id combined with row-level deduplication
     * **Incremental State:** max(updated_at) timestamp watermark for incremental polling
 
-# PostgreSQL Table ('support_tickets') Profiling Summary
+# PostgreSQL Table
 
 * **Table Structure:** Contains 8 columns (ticket_id, customer_id, category, priority, assigned_agent, opened_at, resolved_at, and status) backed by a primary key on ticket_id.
 * **Data Types & Constraints:** Utilizes strongly-typed relational fields: 'integer' for IDs , character varying for text attributes, and timestamp without time zone for dates. Nullability is enforced on primary keys and core categorizations, while 'assigned_agent' and 'resolved_at' allow nullable states.
