@@ -10,9 +10,24 @@ fields:
     type: string
     nullable: false
     unique: true
+  - name: first_name
+    type: str
+    nullable: false
+  - name: last_name
+    type: str
+    nullable: false
   - name: email
     type: string
     nullable: true
+  - name: city
+    type: str
+    nullable: true
+  - name: signup_date
+    type: str
+    nullable: false
+  - name: customer_segment
+    type: str
+    nullable: false
 nullability & uniqueness expectations: ('customer_id') must be strictly unique and non-null.
 quality_rules:
   - Primary key uniqueness check on customer_id
