@@ -3,11 +3,11 @@
 Rerunnable Python ingestion pipeline designed for file-based sources and paginated REST APIs with automated validation, deduplication, state tracking, and execution logging.
 
 ### Project Structure
-* ('src/ingest_pipeline.py): Main orchestration script managing file hasing manifests and incremental API extraction.
-* ('src/local_api_server.py): Mock REST API server providing paginated event streams.
-* ('src/validate_raw.py): Automated quality assurance and data contract validation suite.
-* ('raw/'): Staging directory for immutable raw outputs, including file copies, SHA-256 manifests, and JSONL event logs.
-* ('state/'): Persistent state storage tracking high-watermark timestamps ('api_watermark.json') and execution run logs ('pipeline_run_log_template.csv')
+* ( 'src/ingest_pipeline.py' ): Main orchestration script managing file hasing manifests and incremental API extraction.
+* ( 'src/local_api_server.py' ): Mock REST API server providing paginated event streams.
+* ( 'src/validate_raw.py' ): Automated quality assurance and data contract validation suite.
+* ( 'raw/' ): Staging directory for immutable raw outputs, including file copies, SHA-256 manifests, and JSONL event logs.
+* ( 'state/' ): Persistent state storage tracking high-watermark timestamps ('api_watermark.json') and execution run logs ( 'pipeline_run_log_template.csv' )
 
 ### Core Features
 * **File Ingestion & Manifest Tracking:** Automatically copies CSV, JSON, and Parquet sources while computing SHA-256 content hashes to prevent duplicate ingestion on reruns. 
