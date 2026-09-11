@@ -16,7 +16,7 @@ Rerunnable Python ingestion pipeline designed for file-based sources and paginat
 * **Atomic Watermarking:** Updates high watermark state files using atomic rename patterns to ensure system resilience and prevent data loss.
 * **Execution Run-Logging:** Appends structured operational metrics (run_id, start/end timestamps, status, records read/written, duplicates removed, and watermark state transitions) to CSV logs.
 
-## Quick Start Guide
+### Quick Start Guide
 * Activate the Virtual Environment
     * source .venv/bin/activate
 * Start the Mock API Server
@@ -26,10 +26,10 @@ Rerunnable Python ingestion pipeline designed for file-based sources and paginat
 * Execute Raw Validation Checks:
     * python src/validate_raw.py
 
-# Creator
+### Creator
 * Tumaneng, Thazel J.
 
-# AI Use Disclosure
+### AI Use Disclosure
 * Code refinement for '.py' files
 * Troubleshooting for system errors during code execution
 * Paraphrasing explanations on markdown files
