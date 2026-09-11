@@ -26,6 +26,9 @@ Rerunnable Python ingestion pipeline designed for file-based sources and paginat
 * Execute Raw Validation Checks:
     * python src/validate_raw.py
 
+### Cross-Run Deduplication
+* I handled cross-run deduplication by maintaining historical state, using SHA-256 file hashing manifests, or resolving event IDs by maximum timestamp
+
 ### Creator
 * Tumaneng, Thazel J.
 

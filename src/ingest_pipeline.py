@@ -10,7 +10,7 @@ import uuid
 
 ROOT=Path(__file__).resolve().parents[1]
 DATA=ROOT/'data'; RAW=ROOT/'raw'; STATE=ROOT/'state'
-LOG_PATH = STATE / 'pipeline_run_log_template.csv'
+LOG_PATH = STATE / 'pipeline_run_log.csv'
 API_URL='http://127.0.0.1:8000/api/events'
 
 def utc_now(): return datetime.now(timezone.utc).isoformat()
