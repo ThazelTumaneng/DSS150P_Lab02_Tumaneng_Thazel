@@ -10,7 +10,7 @@ STATE = ROOT / 'state'
 def main():
     print("Running raw output validations...")
     
-    # 1. Assert expected raw files and manifest exist
+    # Assert expected raw files and manifest exist
     manifest_path = RAW / 'files' / 'manifest.json'
     events_path = RAW / 'api' / 'events.jsonl'
     watermark_path = STATE / 'api_watermark.json'
@@ -23,7 +23,7 @@ def main():
     assert events_path.exists(), "Raw API events.jsonl missing!"
     assert watermark_path.exists(), "API watermark state file missing!"
     
-    # 2. Validate API events file (uniqueness, metadata fields, timestamp parseability)
+    # Validate API events file (uniqueness, metadata fields, timestamp parseability)
     event_ids = set()
     max_updated_at = None
     
@@ -52,7 +52,7 @@ def main():
             if max_updated_at is None or record['updated_at'] > max_updated_at:
                 max_updated_at = record['updated_at']
 
-    # 3. Assert watermark equals max updated_at
+    # Assert watermark equals max updated_at
     watermark_data = json.loads(watermark_path.read_text())
     saved_watermark = watermark_data.get('updated_at')
     
