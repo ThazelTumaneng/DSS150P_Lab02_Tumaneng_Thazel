@@ -13,7 +13,6 @@ Rerunnable Python ingestion pipeline designed for file-based sources and paginat
 * **File Ingestion & Manifest Tracking:** Automatically copies CSV, JSON, and Parquet sources while computing SHA-256 content hashes to prevent duplicate ingestion on reruns. 
 * **Paginated REST API Extraction:** Handles multi-page extraction loops, enriching payloads with operational metadata (_ingested_at and _source).
 * **Code-driven Deduplication:** Resolves repeated event IDs by retaining the single logical record with maximum ('updated_at') timestamp.
-* **Atomic Watermarking:** Updates high watermark state files using atomic rename patterns to ensure system resilience and prevent data loss.
 * **Execution Run-Logging:** Appends structured operational metrics (run_id, start/end timestamps, status, records read/written, duplicates removed, and watermark state transitions) to CSV logs.
 
 ### Quick Start Guide
